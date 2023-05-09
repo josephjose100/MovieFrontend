@@ -1,0 +1,117 @@
+<div *ngIf="!isLogin">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h1>NMS</h1>
+                <div class="card">
+                    <div class="card-header">
+                        Admin Login
+                    </div>
+                    <div class="card-body">
+                        <form #frmlogin="ngForm">
+                            NAME:<input type="text" class="form-control" name="name" [(ngModel)]="name" required/>
+                            PASSWORD:<input type="password" class="form-control" name="password" [(ngModel)]="password" required/>
+                            <div class="b1">
+                                <input type="button" class="btn btn-primary" value="Submit" (click)="validateCredentials()" [disabled]="frmlogin.form.invalid"/>
+                  
+                            </div>
+                                  </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>    
+</div>
+<div *ngIf="isLogin">
+    <div *ngIf="!isNewItem">
+        <div class="container-fluid">
+            <div class="row">
+               <div class="col-md-12">
+                    <h1>NMC ADMIN</h1>
+                    <input type="button" class="btn btn-primary" value="Add Movie" (click)="addMovie()"/>
+                    <div class="card">
+                        <div class="card-header">
+                            Movies
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-stripped">
+                                <tr>
+                                    <th>
+                                        NAME
+                                    </th>
+                                    <th>
+                                        Genre
+                                    </th>
+                                    <th>
+                                        Price
+                                    </th>
+                                    <th>
+                                        Language
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Timing1
+                                    </th>
+                                    <th>
+                                        Timing2
+                                    </th>
+                                    <th>
+                                        Timing3
+                                    </th>
+                                </tr>
+                                <tr *ngFor="let mov of movies">
+                                    
+                                    <td style="text-align: center;">
+                                        
+                                    
+                                        <div class="form-check form-switch" style="text-align: center;padding-left: 50px;">
+                                            <input class="form-check-input" style="text-align: center;" type="checkbox" role="switch" [(ngModel)]="mov.availability" (change)="enableDisable(mov.id)"/>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">{{mov.name}}</label>
+                                          </div>
+                                    </td>
+                                    <td>{{mov.genre}}</td>
+                                    <td>{{mov.price}}</td>
+                                    <td>{{mov.language}}</td>
+                                    <td>{{mov.description}}</td>
+                                    <td>{{mov.timing1}}</td>
+                                    <td>{{mov.timing2}}</td>
+                                    <td>{{mov.timing3}}</td>
+                                    <td><img class="images" src="{{mov.url}}" width="200" height="200"></td>
+                               <td>
+                                <input type="button" class="btn btn-outline-danger" value="Delete" (click)="delete(mov.id)"/>
+                               </td>
+                               <td>
+                                <input type="button" class="btn btn-info" value="Update" (click)="update(mov.id)"/>
+                               </td>            
+                            </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isNewItem">
+        <div class="container-fluid">
+            <div class="row">
+                <form #frmNew="ngForm" (ngSubmit)="newMovie(frmNew)">
+                 Name:<input type="text" name="name" class="form-control" [(ngModel)]="movie.name" required/>
+                 Genre:<input type="text" name="genre" class="form-control" [(ngModel)]="movie.genre" required/>
+                 Price:<input type="number" name="price" class="form-control" [(ngModel)]="movie.price" required/>
+                 Language:<input type="text" name="language" class="form-control" [(ngModel)]="movie.language" required/>
+                 Description:<input type="text" name="description" class="form-control" [(ngModel)]="movie.description" required/>
+                 Timing1:<input type="text" name="timing1" class="form-control" [(ngModel)]="movie.timing1" required/>
+                 Timing2:<input type="text" name="timing2" class="form-control" [(ngModel)]="movie.timing2" required/>
+                 Timing3:<input type="text" name="timing3" class="form-control" [(ngModel)]="movie.timing3" required/>
+                 Select image:<input type="file" value="select" #selectFile (change)="onFileSelected($event)"/>
+                <input type="submit" value="Add Product" class="btn btn-primary" [disabled]="frmNew.form.invalid || fileSelected"/>      
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
