@@ -1,0 +1,17 @@
+<div class="modal-header">
+	<h4 class="modal-title">Enter the number of seats required</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+</div>
+<div class="modal-body">
+	<div class="card lesson-border">
+        <form #frmNo="ngForm">
+		<input type="number" name="number" [(ngModel)]="numberOfTickets" class="form-control" max="50" min="1"  required/>
+    </form>	
+    </div>
+</div>
+
+<div class="modal-footer">
+	<input type="button" class="btn btn-primary" value="SAVE" (click)="save()" [disabled]="frmNo.form.invalid">
+</div>

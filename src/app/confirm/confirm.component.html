@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <div class="row" style="min-height: 100vh;background-color: cyan;">
+        <div class="col-md-3">
+            <input type="button" class="btn btn-danger" value="Home Page" (click)="goToHome()"/>
+        </div>
+        <div class="col-md-6" style="height: 100vh;display: flex;flex-direction: column;align-items: center;justify-content: center;">
+            <div class="card">
+                <div class="card-header" style="text-align: center;">
+                 <h1 style="color: darkblue;">NMS Ticket Confirmation</h1>
+                </div>    
+            </div>
+            <div>
+                <p>Your seats have been booked and tickets have been sent to &nbsp; {{user.email}} &nbsp; and &nbsp; {{user.phone}}</p> 
+                
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>

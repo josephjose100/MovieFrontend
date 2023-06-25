@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Admin } from '../admin';
 import { MovieService } from '../movie.service';
 import { Movies } from '../movies';
+import { PassingdataService } from '../passingdata.service';
 
 @Component({
   selector: 'app-admin',
@@ -11,7 +12,8 @@ import { Movies } from '../movies';
 })
 export class AdminComponent implements OnInit {
 
-   constructor(private router:Router,private movieservice:MovieService){}
+   constructor(private router:Router,private movieservice:MovieService
+    ,private passingdataservice :PassingdataService){}
 
    admins:Admin[];
    name:string;
@@ -21,11 +23,11 @@ export class AdminComponent implements OnInit {
    isNewItem:boolean;
    movie:Movies=new Movies();
    selectedFile:File;
-   fileSelected:boolean;
+   fileSelected:boolean=true;
    movies:Movies[];
 
   ngOnInit(): void {
-    this.isLogin=false;
+    this.isLogin=this.passingdataservice.getAdminLogin();
     this.getAdmins();
     this.isNewItem=false;
     this.fileSelected=true;
@@ -39,7 +41,8 @@ export class AdminComponent implements OnInit {
       
       if((admin.name==this.name)&&(admin.password==this.password))
       {
-        this.isLogin=true; 
+        this.isLogin=true;
+        this.passingdataservice.postAdminLogin(true); 
       }   
   }
   }
@@ -85,7 +88,8 @@ export class AdminComponent implements OnInit {
    this.movie.timing1="";
    this.movie.timing2="";
    this.movie.timing3="";
-   
+   this.isNewItem=false;
+   this.getAllMovies();
 
    
    });
@@ -111,8 +115,8 @@ export class AdminComponent implements OnInit {
 
   update(id:number)
   {
-
-
+    this.passingdataservice.postId(id);
+    this.router.navigate([`update`]);
   }
 
  
@@ -133,6 +137,13 @@ export class AdminComponent implements OnInit {
       }
     }
    
+  }
+
+  logOut()
+  {
+    this.isLogin=false;
+    this.passingdataservice.postAdminLogin(false);
+    this.router.navigate([`home`]);
   }
   
 }
