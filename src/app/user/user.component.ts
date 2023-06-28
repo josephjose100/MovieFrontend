@@ -22,7 +22,7 @@ export class UserComponent implements OnInit {
   regResponse:string;
   movies:Movies[];
   searchText:any;
-  
+  sortedMovies:Movies[]=[];
 
   constructor(private modalService: NgbModal,private router:Router,private movieservice:MovieService
     ,private passingdataservice:PassingdataService){}
@@ -81,7 +81,15 @@ export class UserComponent implements OnInit {
   {
     this.movieservice.GetAllMovie().subscribe(data=>{
           this.movies=data;
+          for(let mov of this.movies)
+          {
+            if(mov.availability==true)
+            {
+              this.sortedMovies.push(mov);
+            }
+          }
     });
+    
   }
   addToCart(movie:Movies)
   {

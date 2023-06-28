@@ -13,9 +13,12 @@
                   User Login
               </div>
               <div class="card-body">
-                  Username:<input type="text" class="form-control" [(ngModel)]="username"/>
-                  Password:<input type="password" class="form-control" [(ngModel)]="password"/>
-                  <input type="button" class="btn btn-primary" value="Login" (click)="login()"/> 
+                <form #frmLogin="ngForm">
+                  Username:<input type="text" name="username" class="form-control" [(ngModel)]="username" required/>
+                  Password:<input type="password" name="password" class="form-control" [(ngModel)]="password" required/>
+                </form>
+                  <input type="button" class="btn btn-primary" value="Login" [disabled]="frmLogin.form.invalid" (click)="login()"/> 
+                  
               </div>
           </div>
           <div class="card">
@@ -23,11 +26,13 @@
                 Register User
             </div>
             <div class="card-body">
-                Name:<input type="text" class="form-control" [(ngModel)]="newUser.name"/>
-                Password:<input type="password" class="form-control" [(ngModel)]="newUser.password"/>
-                Email:<input type="text" class="form-control" [(ngModel)]="newUser.email"/>
-                Phone:<input type="text" class="form-control" [(ngModel)]="newUser.phone"/>
-                <input type="button" class="btn btn-primary" value="Login" (click)="register()"/> 
+                <form #frmNew="ngForm">
+                Name:<input type="text" name="name" class="form-control" [(ngModel)]="newUser.name" required/>
+                Password:<input type="password" name="pass" class="form-control" [(ngModel)]="newUser.password" required/>
+                Email:<input type="text" class="form-control" name="email" [(ngModel)]="newUser.email" required/>
+                Phone:<input type="text" class="form-control" name="phone" [(ngModel)]="newUser.phone" required/>
+                </form>
+                <input type="button" class="btn btn-primary" value="Login" [disabled]="frmNew.form.invalid" (click)="register()"/> 
             </div>
         </div>
           </div>  
@@ -53,7 +58,7 @@
                   </div>
                 <ol style="text-align: center;">
                    
-                    <li *ngFor="let mov of movies  | filter:searchText"> 
+                    <li *ngFor="let mov of sortedMovies  | filter:searchText"> 
                         <div class="card" style="border: none;background-color: beige;">
                             <div class="card-body" style="border: none;">  
                                 <img class="images" src="{{mov.url}}" width="200" height="200">    
